@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: StatefulSet
+
+metadata:
+  name: db01
+  namespace: vprofile
+
+spec:
+
+  serviceName: db01
+
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: db01
+
+  template:
+
+    metadata:
+      labels:
+        app: db01
+
+    spec:
+
+      containers:
+
+      - name: mysql
+
+        image: esraaghazal/vprofile-db:latest
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 3306
+
+        env:
+
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_ROOT_PASSWORD
+
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_DATABASE
+
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql
+
+  volumeClaimTemplates:
+
+  - metadata:
+      name: mysql-storage
+
+    spec:
+      accessModes:
+      - ReadWriteOnce
+
+      resources:
+        requests:
+          storage: 5Gi

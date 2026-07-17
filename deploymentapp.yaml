@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: app
+  namespace: vprofile
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: app
+
+  template:
+    metadata:
+      labels:
+        app: app
+
+    spec:
+      enableServiceLinks: false
+
+      initContainers:
+
+      - name: wait-db
+        image: busybox
+        command:
+        - sh
+        - -c
+        - until nc -z db01 3306; do echo waiting db; sleep 3; done
+
+      - name: wait-memcached
+        image: busybox
+        command:
+        - sh
+        - -c
+        - until nc -z mc01 11211; do echo waiting memcached; sleep 3; done
+
+      - name: wait-rabbitmq
+        image: busybox
+        command:
+        - sh
+        - -c
+        - until nc -z rmq01 5672; do echo waiting rabbitmq; sleep 3; done
+
+      containers:
+
+      - name: app
+        image: esraaghazal/vprofile-app:latest
+        imagePullPolicy: Always
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
+
+        ports:
+        - containerPort: 8080
