@@ -1,4 +1,4 @@
-# 🚀 High Availability Kubernetes Cluster on AWS
+#  High Availability Kubernetes Cluster on AWS
 
 ## Overview
 This project demonstrates building a **Highly Available Kubernetes cluster** on **AWS** using **Terraform**, **kubeadm**, and **HAProxy**. The infrastructure is provisioned with Terraform, the Kubernetes control plane is manually bootstrapped, and a containerized **3-tier VProfile application** is deployed.
@@ -10,6 +10,9 @@ This project demonstrates building a **Highly Available Kubernetes cluster** on 
 - Calico CNI
 - containerd runtime
 - Amazon Linux 2023
+  
+  <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/f9b6f3d5-dcd3-469d-99c7-cbec816f2781" />
+
 
 HAProxy exposes a single Kubernetes API endpoint and distributes requests across all control plane nodes.
 
@@ -134,6 +137,7 @@ Deploy in the following order:
 3. Memcached
 4. Tomcat
 
+
 Resources used:
 - Namespace
 - Deployment
@@ -148,6 +152,9 @@ kubectl get deployments
 kubectl get pods
 kubectl get svc
 ```
+<img width="951" height="340" alt="image" src="https://github.com/user-attachments/assets/7af60d63-7ffd-40f9-a301-a3177c042a25" />
+
+
 
 ## Deployment YAML Overview
 
@@ -182,6 +189,9 @@ After deployment:
 kubectl get nodes
 kubectl get pods -A
 ```
+<img width="1220" height="587" alt="Screenshot 2026-07-15 142336" src="https://github.com/user-attachments/assets/7b579315-59e7-4e43-9bc2-05325e260920" />
+
+
 The Kubernetes API remains available through the remaining control plane nodes, demonstrating control plane high availability.
 
 ## Repository Structure
@@ -208,12 +218,3 @@ README.md
 - Secure containerization
 - Kubernetes workload deployment
 - High Availability validation
-
-## Future Improvements
-- Private subnets
-- NAT Gateway
-- External Load Balancer
-- Ingress Controller
-- Monitoring with Prometheus & Grafana
-- CI/CD using GitHub Actions
-- Argo CD for GitOps
