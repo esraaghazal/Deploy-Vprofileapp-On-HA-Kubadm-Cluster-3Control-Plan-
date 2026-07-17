@@ -1,0 +1,40 @@
+services:
+
+  db01:
+    build:
+      context: ./db
+    container_name: db01
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+    ports:
+      - "3306:3306"
+
+  app:
+    build:
+      context: ./app
+    container_name: app
+    depends_on:
+      - db01
+      - mc01
+      - rmq01
+    ports:
+      - "8080:8080"
+      
+  mc01:
+    image: memcached:1.6
+    container_name: mc01
+    ports:
+      - "11211:11211"
+
+  rmq01:
+    image: rabbitmq:3.13-management
+    container_name: rmq01
+    environment:
+      RABBITMQ_DEFAULT_USER: test
+      RABBITMQ_DEFAULT_PASS: test
+    ports:
+      - "5672:5672"
+      - "15672:15672" 
+
+
+  
