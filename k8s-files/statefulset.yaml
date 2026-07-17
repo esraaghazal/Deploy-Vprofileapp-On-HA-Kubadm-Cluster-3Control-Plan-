@@ -6,7 +6,6 @@ metadata:
   namespace: vprofile
 
 spec:
-
   serviceName: db01
 
   replicas: 1
@@ -16,15 +15,12 @@ spec:
       app: db01
 
   template:
-
     metadata:
       labels:
         app: db01
 
     spec:
-
       containers:
-
       - name: mysql
 
         image: esraaghazal/vprofile-db:latest
@@ -34,7 +30,6 @@ spec:
         - containerPort: 3306
 
         env:
-
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -51,12 +46,13 @@ spec:
         - name: mysql-storage
           mountPath: /var/lib/mysql
 
-  volumeClaimTemplates:
-
+volumeClaimTemplates:
   - metadata:
       name: mysql-storage
 
     spec:
+      storageClassName: local-path
+
       accessModes:
       - ReadWriteOnce
 
