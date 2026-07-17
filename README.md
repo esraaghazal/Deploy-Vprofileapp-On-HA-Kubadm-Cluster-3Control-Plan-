@@ -1,4 +1,4 @@
-# 🚀 High Availability Kubernetes Cluster on AWS
+#  High Availability Kubernetes Cluster on AWS
 
 ## Overview
 This project demonstrates building a **Highly Available Kubernetes cluster** on **AWS** using **Terraform**, **kubeadm**, and **HAProxy**. The infrastructure is provisioned with Terraform, the Kubernetes control plane is manually bootstrapped, and a containerized **3-tier VProfile application** is deployed.
@@ -10,6 +10,9 @@ This project demonstrates building a **Highly Available Kubernetes cluster** on 
 - Calico CNI
 - containerd runtime
 - Amazon Linux 2023
+  
+  <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/f9b6f3d5-dcd3-469d-99c7-cbec816f2781" />
+
 
 HAProxy exposes a single Kubernetes API endpoint and distributes requests across all control plane nodes.
 
@@ -208,12 +211,3 @@ README.md
 - Secure containerization
 - Kubernetes workload deployment
 - High Availability validation
-
-## Future Improvements
-- Private subnets
-- NAT Gateway
-- External Load Balancer
-- Ingress Controller
-- Monitoring with Prometheus & Grafana
-- CI/CD using GitHub Actions
-- Argo CD for GitOps
